@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CampusConnect | Student Event Management</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        "float": "float 4s ease-in-out infinite",
+                        "fade-up": "fadeUp 0.8s ease-out forwards",
+                        "pulse-slow": "pulse 3s infinite",
+                        "gradient": "gradient 6s ease infinite"
+                    },
+
+                    keyframes: {
+                        float: {
+                            "0%, 100%": {
+                                transform: "translateY(0)"
+                            },
+                            "50%": {
+                                transform: "translateY(-15px)"
+                            }
+                        },
+
+                        fadeUp: {
+                            "0%": {
+                                opacity: "0",
+                                transform: "translateY(30px)"
+                            },
+                            "100%": {
+                                opacity: "1",
+                                transform: "translateY(0)"
+                            }
+                        },
+
+                        gradient: {
+                            "0%, 100%": {
+                                "background-position": "0% 50%"
+                            },
+                            "50%": {
+                                "background-position": "100% 50%"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f8fafc;
+        }
+
+        /* Animated gradient background */
+
+        .gradient-bg {
+            background: linear-gradient(
+                120deg,
+                #0f172a,
+                #1e3a8a,
+                #312e81,
+                #0f172a
+            );
+
+            background-size: 300% 300%;
+            animation: gradient 8s ease infinite;
+        }
+
+        /* Floating background circles */
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: 0.25;
+            pointer-events: none;
+        }
+
+        .blob-one {
+            width: 300px;
+            height: 300px;
+            background: #6366f1;
+            top: 100px;
+            left: -100px;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        .blob-two {
+            width: 250px;
+            height: 250px;
+            background: #06b6d4;
+            right: -80px;
+            top: 250px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Glass effect */
+
+        .glass {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        /* Event cards */
+
+        .event-card {
+            transition: all 0.35s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
+        }
+
+        /* Button animation */
+
+        .primary-btn {
+            transition: all 0.3s ease;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.35);
+        }
+
+        /* Navbar */
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Scroll animation */
+
+        .fade-item {
+            opacity: 0;
+            animation: fadeUp 0.8s ease-out forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+
+        .delay-4 {
+            animation-delay: 0.8s;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="gradient-bg text-white sticky top-0 z-50 shadow-lg">
+
+        <div class="max-w-7xl mx-auto px-6 py-4">
+
+            <div class="flex items-center justify-between">
+
+                <!-- Logo -->
+
+                <a href="index.html"
+                   class="text-2xl font-extrabold tracking-tight">
+
+                    Campus<span class="text-cyan-300">Connect</span>
+
+                </a>
+
+
+                <!-- Desktop Navigation -->
+
+                <div class="hidden md:flex items-center gap-8">
+
+                    <a href="index.html"
+                       class="nav-link font-medium">
+                        Home
+                    </a>
+
+                    <a href="events.html"
+                       class="nav-link font-medium">
+                        Events
+                    </a>
+
+                    <a href="registration.html"
+                       class="nav-link font-medium">
+                        Register
+                    </a>
+
+                    <a href="admin.html"
+                       class="nav-link font-medium">
+                        Admin
+                    </a>
+
+                </div>
+
+
+                <!-- Register button -->
+
+                <a href="registration.html"
+                   class="hidden md:block bg-white text-indigo-700 px-5 py-2 rounded-full font-semibold primary-btn">
+
+                    Register Now
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- ================= HERO SECTION ================= -->
+
+    <section class="gradient-bg text-white relative overflow-hidden">
+
+        <!-- Decorative blobs -->
+
+        <div class="blob blob-one"></div>
+        <div class="blob blob-two"></div>
+
+
+        <div class="max-w-7xl mx-auto px-6 py-24 lg:py-32 relative z-10">
+
+            <div class="grid lg:grid-cols-2 gap-14 items-center">
+
+
+                <!-- Hero Text -->
+
+                <div>
+
+                    <div class="fade-item">
+
+                        <span class="inline-block glass px-4 py-2 rounded-full text-sm font-medium mb-6">
+
+                            🎓 Your Campus. Your Events. Your Community.
+
+                        </span>
+
+                    </div>
+
+
+                    <h1 class="fade-item delay-1 text-5xl lg:text-7xl font-black leading-tight">
+
+                        Discover.
+
+                        <span class="text-cyan-300">
+                            Connect.
+                        </span>
+
+                        Experience.
+
+                    </h1>
+
+
+                    <p class="fade-item delay-2 text-lg text-slate-200 mt-6 max-w-xl leading-relaxed">
+
+                        Discover exciting college events, connect with fellow
+                        students, and register for experiences that make your
+                        campus life unforgettable.
+
+                    </p>
+
+
+                    <!-- Hero Buttons -->
+
+                    <div class="fade-item delay-3 flex flex-wrap gap-4 mt-8">
+
+                        <a href="events.html"
+                           class="primary-btn bg-white text-indigo-700 px-7 py-3 rounded-full font-bold">
+
+                            Explore Events →
+                            
+                        </a>
+
+
+                        <a href="registration.html"
+                           class="primary-btn border border-white/40 glass px-7 py-3 rounded-full font-bold">
+
+                            Register for an Event
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- Small trust line -->
+
+                    <div class="fade-item delay-4 flex items-center gap-3 mt-8 text-slate-300">
+
+                        <span class="text-xl">✓</span>
+
+                        <span>
+                            Simple registration • Student friendly • Easy management
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Hero Visual -->
+
+                <div class="hidden lg:flex justify-center">
+
+                    <div class="relative animate-float">
+
+                        <!-- Main Card -->
+
+                        <div class="glass rounded-3xl p-8 w-96 shadow-2xl">
+
+                            <div class="flex items-center justify-between mb-8">
+
+                                <div>
+
+                                    <p class="text-slate-300 text-sm">
+                                        Upcoming Event
+                                    </p>
+
+                                    <h3 class="text-2xl font-bold">
+                                        Tech Fest 2026
+                                    </h3>
+
+                                </div>
+
+                                <div class="bg-cyan-400/20 p-3 rounded-xl text-2xl">
+                                    💻
+                                </div>
+
+                            </div>
+
+
+                            <div class="space-y-4 text-slate-200">
+
+                                <div class="flex gap-3">
+                                    <span>📅</span>
+                                    <span>20 September 2026</span>
+                                </div>
+
+                                <div class="flex gap-3">
+                                    <span>📍</span>
+                                    <span>Seminar Hall</span>
+                                </div>
+
+                                <div class="flex gap-3">
+                                    <span>👥</span>
+                                    <span>120+ Students</span>
+                                </div>
+
+                            </div>
+
+
+                            <a href="registration.html"
+                               class="block text-center bg-cyan-400 text-slate-900 font-bold py-3 rounded-xl mt-8 primary-btn">
+
+                                Register Now
+
+                            </a>
+
+                        </div>
+
+
+                        <!-- Floating badge -->
+
+                        <div class="absolute -top-8 -right-10 glass px-5 py-3 rounded-2xl shadow-xl">
+
+                            ⭐
+                            <span class="font-bold">
+                                Popular Event
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= STATISTICS ================= -->
+
+    <section class="bg-white py-12">
+
+        <div class="max-w-6xl mx-auto px-6">
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+
+
+                <div class="p-6">
+
+                    <div class="text-4xl font-black text-indigo-600">
+                        50+
+                    </div>
+
+                    <p class="text-gray-500 mt-2">
+                        Events
+                    </p>
+
+                </div>
+
+
+                <div class="p-6">
+
+                    <div class="text-4xl font-black text-indigo-600">
+                        2K+
+                    </div>
+
+                    <p class="text-gray-500 mt-2">
+                        Students
+                    </p>
+
+                </div>
+
+
+                <div class="p-6">
+
+                    <div class="text-4xl font-black text-indigo-600">
+                        25+
+                    </div>
+
+                    <p class="text-gray-500 mt-2">
+                        Clubs
+                    </p>
+
+                </div>
+
+
+                <div class="p-6">
+
+                    <div class="text-4xl font-black text-indigo-600">
+                        100%
+                    </div>
+
+                    <p class="text-gray-500 mt-2">
+                        Student Focused
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= EVENTS ================= -->
+
+    <section class="py-20 bg-slate-50" id="events">
+
+        <div class="max-w-7xl mx-auto px-6">
+
+
+            <div class="text-center mb-14">
+
+                <span class="text-indigo-600 font-bold uppercase tracking-widest text-sm">
+                    What's happening
+                </span>
+
+                <h2 class="text-4xl md:text-5xl font-black text-slate-900 mt-3">
+                    Featured Events
+                </h2>
+
+                <p class="text-gray-500 mt-4 max-w-2xl mx-auto">
+                    Explore some of the exciting events happening around your campus.
+                </p>
+
+            </div>
+
+
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+
+                <!-- Event 1 -->
+
+                <div class="event-card bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100">
+
+                    <div class="h-44 bg-gradient-to-br from-indigo-600 to-purple-700 flex items-center justify-center text-7xl">
+                        💻
+                    </div>
+
+                    <div class="p-7">
+
+                        <span class="text-xs font-bold text-indigo-600 uppercase">
+                            Technology
+                        </span>
+
+                        <h3 class="text-2xl font-bold mt-2">
+                            Tech Fest 2026
+                        </h3>
+
+                        <p class="text-gray-500 mt-3">
+                            Explore innovation, coding challenges and emerging technologies.
+                        </p>
+
+                        <div class="text-sm text-gray-500 space-y-2 mt-5">
+
+                            <p>📅 20 September 2026</p>
+
+                            <p>📍 Seminar Hall</p>
+
+                        </div>
+
+                        <a href="registration.html"
+                           class="block text-center mt-6 bg-indigo-600 text-white py-3 rounded-xl font-semibold primary-btn">
+
+                            Register
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Event 2 -->
+
+                <div class="event-card bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100">
+
+                    <div class="h-44 bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-7xl">
+                        🧠
+                    </div>
+
+                    <div class="p-7">
+
+                        <span class="text-xs font-bold text-cyan-600 uppercase">
+                            Competition
+                        </span>
+
+                        <h3 class="text-2xl font-bold mt-2">
+                            Coding Contest
+                        </h3>
+
+                        <p class="text-gray-500 mt-3">
+                            Test your problem-solving skills and compete with talented students.
+                        </p>
+
+                        <div class="text-sm text-gray-500 space-y-2 mt-5">
+
+                            <p>📅 25 September 2026</p>
+
+                            <p>📍 Computer Lab</p>
+
+                        </div>
+
+                        <a href="registration.html"
+                           class="block text-center mt-6 bg-cyan-600 text-white py-3 rounded-xl font-semibold primary-btn">
+
+                            Register
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Event 3 -->
+
+                <div class="event-card bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100">
+
+                    <div class="h-44 bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center text-7xl">
+                        🎭
+                    </div>
+
+                    <div class="p-7">
+
+                        <span class="text-xs font-bold text-pink-600 uppercase">
+                            Cultural
+                        </span>
+
+                        <h3 class="text-2xl font-bold mt-2">
+                            Cultural Fest
+                        </h3>
+
+                        <p class="text-gray-500 mt-3">
+                            Celebrate creativity, music, dance and the cultural spirit of campus life.
+                        </p>
+
+                        <div class="text-sm text-gray-500 space-y-2 mt-5">
+
+                            <p>📅 30 September 2026</p>
+
+                            <p>📍 College Auditorium</p>
+
+                        </div>
+
+                        <a href="registration.html"
+                           class="block text-center mt-6 bg-pink-600 text-white py-3 rounded-xl font-semibold primary-btn">
+
+                            Register
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="text-center mt-12">
+
+                <a href="events.html"
+                   class="inline-block border-2 border-indigo-600 text-indigo-600 px-7 py-3 rounded-full font-bold hover:bg-indigo-600 hover:text-white transition">
+
+                    View All Events →
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= HOW IT WORKS ================= -->
+
+    <section class="py-20 bg-white">
+
+        <div class="max-w-6xl mx-auto px-6">
+
+            <div class="text-center mb-14">
+
+                <span class="text-indigo-600 font-bold uppercase tracking-widest text-sm">
+                    Simple process
+                </span>
+
+                <h2 class="text-4xl font-black mt-3">
+                    How CampusConnect Works
+                </h2>
+
+            </div>
+
+
+            <div class="grid md:grid-cols-3 gap-10">
+
+
+                <div class="text-center">
+
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-2xl font-black">
+                        01
+                    </div>
+
+                    <h3 class="text-xl font-bold mt-5">
+                        Discover
+                    </h3>
+
+                    <p class="text-gray-500 mt-3">
+                        Browse upcoming college events and find something that interests you.
+                    </p>
+
+                </div>
+
+
+                <div class="text-center">
+
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-cyan-100 text-cyan-600 flex items-center justify-center text-2xl font-black">
+                        02
+                    </div>
+
+                    <h3 class="text-xl font-bold mt-5">
+                        Register
+                    </h3>
+
+                    <p class="text-gray-500 mt-3">
+                        Select your event and complete the simple student registration form.
+                    </p>
+
+                </div>
+
+
+                <div class="text-center">
+
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-pink-100 text-pink-600 flex items-center justify-center text-2xl font-black">
+                        03
+                    </div>
+
+                    <h3 class="text-xl font-bold mt-5">
+                        Participate
+                    </h3>
+
+                    <p class="text-gray-500 mt-3">
+                        Attend the event, meet new people and make your campus experience memorable.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= CTA ================= -->
+
+    <section class="gradient-bg text-white py-20">
+
+        <div class="max-w-5xl mx-auto px-6 text-center">
+
+            <div class="text-6xl mb-6 animate-bounce">
+                🚀
+            </div>
+
+            <h2 class="text-4xl md:text-5xl font-black">
+                Ready to Explore Campus Life?
+            </h2>
+
+            <p class="text-slate-200 text-lg mt-5 max-w-2xl mx-auto">
+                Find your next event, register in seconds and become part of
+                the student community.
+            </p>
+
+            <div class="flex justify-center gap-4 mt-8 flex-wrap">
+
+                <a href="events.html"
+                   class="bg-white text-indigo-700 px-8 py-3 rounded-full font-bold primary-btn">
+
+                    Explore Events
+
+                </a>
+
+                <a href="registration.html"
+                   class="glass px-8 py-3 rounded-full font-bold primary-btn">
+
+                    Register Now
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="bg-slate-950 text-slate-400">
+
+        <div class="max-w-7xl mx-auto px-6 py-12">
+
+            <div class="grid md:grid-cols-3 gap-10">
+
+
+                <div>
+
+                    <h3 class="text-2xl font-black text-white">
+                        Campus<span class="text-cyan-400">Connect</span>
+                    </h3>
+
+                    <p class="mt-4 max-w-sm">
+                        A student-focused event management platform designed
+                        to make campus events easier to discover and manage.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h4 class="text-white font-bold mb-4">
+                        Quick Links
+                    </h4>
+
+                    <div class="space-y-3">
+
+                        <a href="events.html"
+                           class="block hover:text-white transition">
+                            Events
+                        </a>
+
+                        <a href="registration.html"
+                           class="block hover:text-white transition">
+                            Registration
+                        </a>
+
+                        <a href="admin.html"
+                           class="block hover:text-white transition">
+                            Admin
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <h4 class="text-white font-bold mb-4">
+                        Student Portal
+                    </h4>
+
+                    <p>
+                        Discover • Register • Participate
+                    </p>
+
+                    <div class="flex gap-4 mt-5 text-xl">
+
+                        <span>💻</span>
+                        <span>🎓</span>
+                        <span>🚀</span>
+                        <span>✨</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="border-t border-slate-800 mt-10 pt-6 text-center text-sm">
+
+                © 2026 CampusConnect — Student Event Management System
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>
