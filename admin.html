@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Event Management - Student Event Management System</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #333;
+        }
+
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin-bottom: 8px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 30px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        form {
+            display: grid;
+            gap: 12px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+        .add-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .add-btn:hover {
+            background: #219150;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #34495e;
+            color: white;
+        }
+
+        .edit-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 7px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .delete-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 7px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #2c3e50;
+            color: white;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Student Event Management System</h1>
+        <p>Administrator Event Management</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Add Event Section -->
+        <div class="card">
+
+            <h2>Add New Event</h2>
+
+            <form>
+                <label for="eventName">Event Name</label>
+                <input
+                    type="text"
+                    id="eventName"
+                    placeholder="Enter event name"
+                    required
+                >
+
+                <label for="eventDate">Event Date</label>
+                <input
+                    type="date"
+                    id="eventDate"
+                    required
+                >
+
+                <label for="eventVenue">Venue</label>
+                <input
+                    type="text"
+                    id="eventVenue"
+                    placeholder="Enter venue"
+                    required
+                >
+
+                <button type="submit" class="add-btn">
+                    Add Event
+                </button>
+            </form>
+
+        </div>
+
+
+        <!-- Manage Events Section -->
+        <div class="card">
+
+            <h2>Manage Events</h2>
+
+            <table>
+
+                <tr>
+                    <th>Event Name</th>
+                    <th>Date</th>
+                    <th>Venue</th>
+                    <th>Actions</th>
+                </tr>
+
+                <tr>
+                    <td>Tech Fest</td>
+                    <td>20-09-2026</td>
+                    <td>Seminar Hall</td>
+
+                    <td>
+                        <button class="edit-btn">
+                            Edit
+                        </button>
+
+                        <button class="delete-btn">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Coding Contest</td>
+                    <td>25-09-2026</td>
+                    <td>Computer Lab</td>
+
+                    <td>
+                        <button class="edit-btn">
+                            Edit
+                        </button>
+
+                        <button class="delete-btn">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Cultural Fest</td>
+                    <td>30-09-2026</td>
+                    <td>Auditorium</td>
+
+                    <td>
+                        <button class="edit-btn">
+                            Edit
+                        </button>
+
+                        <button class="delete-btn">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <footer>
+        Student Event Management System © 2026
+    </footer>
+
+</body>
+</html>
